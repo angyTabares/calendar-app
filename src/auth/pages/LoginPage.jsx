@@ -27,6 +27,7 @@ export const LoginPage = () => {
         startLogin({email: loginEmail, password: loginPassword})
     }
 
+    
     const registerSubmit = (event) => {
         event.preventDefault();
         if( registerPassword!== registerPassword2){
