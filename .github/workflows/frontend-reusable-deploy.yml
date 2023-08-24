@@ -1,0 +1,12 @@
+name: Workflow that reuses the deploy-cloud-run.yml workflow depending on the environment
+on:
+  pull_request: {}
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: Deploy to the corresponding environment - ${{ github.base_ref }}
+    uses: ./.github/workflows/frontend-reusable-deploy.yml
+    with:
+      environment: ${{ github.base_ref }}
