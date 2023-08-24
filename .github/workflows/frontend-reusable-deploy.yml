@@ -1,0 +1,27 @@
+---
+name: Build and deploy to Firebase Hosting
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: Environment to deploy to
+        required: true
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          yarn && yarn build
+          echo ${{ secrets.GITHUB_TOKEN }}
+          echo ${{ vars.FIREBASE_SERVICE_ACCOUNT_GTECH_DEV }}
+          echo ${{ vars.PROJECT_ID }}
+          echo ${{ inputs.environment }}
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ vars.FIREBASE_SERVICE_ACCOUNT_GTECH_DEV }}
+          channelId: live
+          projectId: ${{ vars.PROJECT_ID }}
+          target: ${{ inputs.environment }}-toc
