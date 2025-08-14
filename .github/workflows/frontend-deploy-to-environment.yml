@@ -20,8 +20,8 @@ jobs:
           echo ${{ inputs.environment }}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ vars.FIREBASE_SERVICE_ACCOUNT_GTECH_DEV }}"
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ vars.FIREBASE_SERVICE_ACCOUNT_GTECH_DEV }}
           channelId: live
           projectId: ${{ vars.PROJECT_ID }}
           target: ${{ inputs.environment }}-toc
