@@ -47,7 +47,7 @@ export const LoginPage = () => {
         <div className="container login-container">
             <div className="row">
                 <div className="col-md-6 login-form-1">
-                    <h3>Inicio de Sesión 2</h3>
+                    <h3>Inicio de Sesión</h3>
                     <form onSubmit={loginSubmit}>
                         <div className="form-group mb-2">
                             <input 
