@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 export const useForm = (initialForm = {}, formValidations = {}) => {
   const [formState, setFormState] = useState(initialForm);
   const [formValidation, setFormValidation] = useState({});
+  const [touched, setTouched] = useState({});
 
   useEffect(() => {
     createValidators();
@@ -28,8 +29,17 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
     });
   };
 
+  const onBlur = ({ target }) => {
+    const { name } = target;
+    setTouched({
+      ...touched,
+      [name]: true,
+    });
+  };
+
   const onResetForm = () => {
     setFormState(initialForm);
+    setTouched({});
   };
 
   const createValidators = () => {
@@ -46,13 +56,24 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
     setFormValidation(formCheckedValues);
   };
 
+  const setAllTouched = () => {
+    const newTouched = {};
+    Object.keys(formState).forEach((key) => {
+      newTouched[key] = true;
+    });
+    setTouched(newTouched);
+  };
+
   return {
     ...formState,
     formState,
     onInputChange,
     onResetForm,
+    onBlur,
 
     ...formValidation,
     isFormValid,
+    touched,
+    setAllTouched,
   };
 };
